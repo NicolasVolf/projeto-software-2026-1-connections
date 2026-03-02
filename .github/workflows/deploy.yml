@@ -48,7 +48,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: nicolasvolf/connections:${{ github.sha }}
+        tags: nicolasvolf/proj1mongo:${{ github.sha }}
 
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
@@ -60,5 +60,5 @@ jobs:
         script: |
           docker stop conexoes
           docker rm --force conexoes
-          docker run  -d -p 8080:8080 --network=rede --name conexoes nicolasvolf/connections:${{ github.sha }}
+          docker run  -d -p 8080:8080 --network=rede --name conexoes nicolasvolf/proj1mongo:${{ github.sha }}
 
