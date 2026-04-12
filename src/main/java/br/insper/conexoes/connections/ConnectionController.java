@@ -18,7 +18,10 @@ public class ConnectionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Connection createConnection(@RequestBody CreateConnectionRequest request) {
+    public Connection createConnection(
+            @RequestHeader(name = "Authorization") String token,
+            @RequestBody CreateConnectionRequest request) {
+        System.out.println(token);
         return service.create(
                 request.fromUserId(),
                 request.toUserId()
@@ -26,12 +29,18 @@ public class ConnectionController {
     }
 
     @GetMapping("/{userId}")
-    public List<Connection> listConnections(@PathVariable String userId) {
+    public List<Connection> listConnections(
+            @RequestHeader(name = "Authorization") String token,
+            @PathVariable String userId) {
+        System.out.println(token);
         return service.listByUser(userId);
     }
 
     @DeleteMapping
-    public void deleteConnection(@RequestBody DeleteConnectionRequest request) {
+    public void deleteConnection(
+            @RequestHeader(name = "Authorization") String token,
+            @RequestBody DeleteConnectionRequest request) {
+        System.out.println(token);
         service.delete(
                 request.fromUserId(),
                 request.toUserId()
